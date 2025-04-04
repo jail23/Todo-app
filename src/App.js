@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Sidebar from "./components/Sidebar";
+import TaskList from "./components/TaskList";
+import TaskInput from "./components/TaskInput";
+import "./App.css";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [tasks, setTasks] = useState([]);
+    const [lists, setLists] = useState([]);
+
+    const addTask = (newTask) => {
+        setTasks([...tasks, newTask]);
+    };
+
+    const addList = (newList) => {
+        setLists([...lists, newList]);
+    };
+
+    return (
+        <div className="app-container">
+            <Sidebar lists={lists} onAddList={addList} />
+            <div className="main-content">
+                <h2>☀ My Day</h2>
+                <TaskInput onAddTask={addTask} />
+                <TaskList tasks={tasks} />
+            </div>
+        </div>
+    );
 }
 
 export default App;
